@@ -128,72 +128,8 @@ export const site: SiteContent = {
   // Not rendered in v1. Real quotes only, verbatim ("…" marks a trim), names exactly as the platform shows them.
   // Google texts/names: Google reviews republished on third-party mirror pages (see research_brief.md §3).
   // Staff names in reviews were trimmed out. TODO(Leads): get the owner's OK before publishing.
-  testimonials: [
-    {
-      quote:
-        "Amazing food, staff makes you feel like family. That's why the line starts an hour before they open......YES it's that good",
-      author: "Scochie Myers",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-    {
-      quote:
-        "PSA! The absolute best Italian cuisine we have ever experienced. The pear fiocchi hit every sense imaginable. Must try!",
-      author: "Jenny Raulerson",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-    {
-      quote:
-        "This tiny restaurant is awesome. This is real Italian food, not Italian-American. Everything we have had here has been over the top fantastic.",
-      author: "velcro_dog",
-      sourceLabel: "Tripadvisor review",
-      sourceUrl:
-        "https://www.tripadvisor.com/Restaurant_Review-g60805-d16640678-Reviews-Catullo_s_Italian-Jacksonville_Florida.html",
-    },
-    {
-      quote:
-        "My husband had the pappardelle al limone e tartufo (scallops on truffle and lemon pasta) and I had the pear fiocchi (pasta with pear and goat cheese). Both were absolutely phenomenal!!",
-      author: "Madison Williams",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-    {
-      quote:
-        "You could drive by this place a thousand times and not know you were missing one of your best meals ever. Gotta check it out.",
-      author: "Ken Boben",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-    {
-      quote:
-        "The Sunday Supper is an absolute must: fresh pasta made daily, meatballs that melt in your mouth, and that rich red sauce ties it all together beautifully. … Everyone makes you feel like part of the family …",
-      author: "Steve Luckhardt",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-    {
-      quote:
-        "What a small, quaint and lovely place! The servers are so kind and friendly! Well worth the wait. My mother got the ravioli in blush sauce & I got the scallop risotto (beyond delicious with a little heat kick).",
-      author: "Jennifer Hedrick",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-    {
-      quote:
-        "Not only does the food taste spectacular, their presentation also always goes above and beyond! … I dream of the pear fiocchi.",
-      author: "Savannah Smith",
-      sourceLabel: "Google review",
-      sourceUrl:
-        "https://www.google.com/maps/search/?api=1&query=Catullo%27s+Italian+1650-2+San+Pablo+Rd+S+Jacksonville+FL+32224&query_place_id=ChIJIea8WoBL5IgRHhZnvEX1V6A",
-    },
-  ],
+  // Emptied until the owner approves quoting reviews (reviewer names/URLs were reaching the bundle).
+  testimonials: [],
 
   // Verified answers only.
   // TODO(Leads): owner-only FAQs: catering / large orders (owner says case-by-case; listings conflict),
