@@ -1,7 +1,6 @@
 import { GalleryGrid } from "@/components/gallery";
 import { Reveal } from "@/components/reveal";
-import { container, eyebrow, sectionTitle } from "@/components/styles";
-import { cn } from "@/lib/cn";
+import { container } from "@/components/styles";
 import { galleryRemainder } from "@/lib/dishes";
 
 export function Gallery() {
@@ -11,8 +10,8 @@ export function Gallery() {
     <section id="gallery" className="grain grain-dark bg-ink py-24 text-cream sm:py-32">
       <div className={container}>
         <Reveal className="max-w-2xl">
-          <p className={cn(eyebrow, "text-gold")}>From our kitchen</p>
-          <h2 className={cn(sectionTitle, "mt-5 text-cream")}>
+          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-gold">From our kitchen</p>
+          <h2 className="mt-5 font-display text-[2.6rem] font-medium leading-[1] tracking-tight text-cream sm:text-6xl md:text-7xl">
             Fresh pasta, <em className="text-gold">every night</em>
           </h2>
         </Reveal>
