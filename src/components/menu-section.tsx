@@ -41,12 +41,7 @@ export function MenuSection() {
                         {category.items.map((item) => (
                           <li key={item.id}>
                             <div className="flex items-baseline gap-3">
-                              <span className="min-w-0 font-display text-xl font-semibold text-ink">
-                                {item.name}
-                                {item.signature && (
-                                  <span className="ml-2 align-middle text-[0.6rem] font-sans font-bold uppercase tracking-[0.2em] text-brand">
-                                    Favorite
-                                  </span>
+                              <span className="min-w-0 font-display text-xl font-semibold text-ink">{item.name}</span>
                                 )}
                                 {item.isNew && (
                                   <span className="ml-2 align-middle text-[0.6rem] font-sans font-bold uppercase tracking-[0.2em] text-olive">New</span>
@@ -62,6 +57,12 @@ export function MenuSection() {
                                 </>
                               )}
                             </div>
+                            {(item.signature || item.isNew) && (
+                              <p className="mt-0.5 flex gap-3 text-[0.6rem] font-bold uppercase tracking-[0.2em]">
+                                {item.signature && <span className="text-brand">House favorite</span>}
+                                {item.isNew && <span className="text-olive">New</span>}
+                              </p>
+                            )}
                             {item.description?.trim() && <p className="mt-1 text-sm leading-relaxed text-ink/65">{item.description}</p>}
                           </li>
                         ))}
