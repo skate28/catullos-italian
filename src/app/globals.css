@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/*
+  Fallbacks match src/content/site.ts palette. Live values are set on <html> from that file.
+  Light trattoria design: cream page, espresso text, terracotta buttons, olive accents,
+  antique-gold prices, deep wine bands.
+*/
+:root {
+  --ct-ink: #2a1a14;
+  --ct-brand: #b4492b;
+  --ct-brand-deep: #7a1f1a;
+  --ct-accent: #6b7240;
+  --ct-gold: #b8863b;
+  --ct-wine: #3a1513;
+  --ct-cream: #f6eedf;
+  --ct-paper: #fffaf0;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-ink: var(--ct-ink);
+  --color-brand: var(--ct-brand);
+  --color-brand-deep: var(--ct-brand-deep);
+  --color-olive: var(--ct-accent);
+  --color-accent: var(--ct-accent);
+  --color-gold: var(--ct-gold);
+  --color-wine: var(--ct-wine);
+  --color-cream: var(--ct-cream);
+  --color-paper: var(--ct-paper);
+  --color-line: color-mix(in oklab, var(--ct-ink) 14%, transparent);
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Cormorant Garamond", Georgia, serif;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-spin-slow: spin 60s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  background: var(--ct-cream);
+}
+
+body {
+  background-color: var(--ct-cream);
+  color: var(--ct-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--ct-brand);
+  color: var(--ct-paper);
+}
+
+/* Paper grain: an SVG fractal-noise overlay. No photos needed. */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.22 0 0 0 0 0.12 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.grain-dark::before {
+  mix-blend-mode: screen;
+  opacity: 0.18;
+}
+
+/* Faint tablecloth check, used behind the hero. */
+.tablecloth {
+  background-image:
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--ct-brand) 7%, transparent) 0 22px, transparent 22px 44px),
+    repeating-linear-gradient(90deg, color-mix(in oklab, var(--ct-brand) 7%, transparent) 0 22px, transparent 22px 44px);
+}
+
+/* Dotted leader between menu item name and price. */
+.leader {
+  flex: 1 1 auto;
+  min-width: 0.75rem;
+  border-bottom: 1.5px dotted color-mix(in oklab, var(--ct-ink) 30%, transparent);
+  transform: translateY(-0.3em);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-spin-slow {
+    animation: none;
+  }
+}
