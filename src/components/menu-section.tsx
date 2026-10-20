@@ -42,11 +42,6 @@ export function MenuSection() {
                           <li key={item.id}>
                             <div className="flex items-baseline gap-3">
                               <span className="min-w-0 font-display text-xl font-semibold text-ink">{item.name}</span>
-                                )}
-                                {item.isNew && (
-                                  <span className="ml-2 align-middle text-[0.6rem] font-sans font-bold uppercase tracking-[0.2em] text-olive">New</span>
-                                )}
-                              </span>
                               {typeof item.price === "number" && Number.isFinite(item.price) && (
                                 <>
                                   <span className="leader" aria-hidden="true" />
