@@ -1,6 +1,8 @@
 import { ComingSoon } from "@/components/coming-soon";
 import { WhatToExpect } from "@/components/expect";
+import { Dishes } from "@/components/dishes";
 import { Faq } from "@/components/faq";
+import { Gallery } from "@/components/gallery-section";
 import { Hero } from "@/components/hero";
 import { Marquee } from "@/components/marquee";
 import { MenuSection } from "@/components/menu-section";
@@ -13,9 +15,11 @@ export default function HomePage() {
       <Hero />
       <Marquee />
       <Story />
+      <Dishes />
       <MenuSection />
       <WhatToExpect />
       <ComingSoon />
+      <Gallery />
       <Visit />
       <Faq />
     </main>

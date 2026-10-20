@@ -1,4 +1,5 @@
-import { Clock, DoorOpen, Users, Wine } from "lucide-react";
+import { Clock, DoorOpen, ShoppingBag, Sparkles, Users, Wine } from "lucide-react";
+import type { ComponentType } from "react";
 
 import { Flourish, Scallop } from "@/components/ornaments";
 import { Reveal } from "@/components/reveal";
@@ -8,6 +9,17 @@ import { cn } from "@/lib/cn";
 import { nextOpeningSentence } from "@/lib/expect";
 
 const ICONS = [DoorOpen, Users, Clock, Wine];
+
+/** Pick an icon from the card title; falls back to position. */
+function iconFor(title: string, index: number): ComponentType<{ className?: string }> {
+  const t = title.toLowerCase();
+  if (/walk|reserv|door/.test(t)) return DoorOpen;
+  if (/early|line|open/.test(t)) return Users;
+  if (/wait|time/.test(t)) return Clock;
+  if (/bar|wine/.test(t)) return Wine;
+  if (/takeout|to go|pickup/.test(t)) return ShoppingBag;
+  return ICONS[index % ICONS.length] ?? Sparkles;
+}
 
 export function WhatToExpect() {
   const content = site.whatToExpect;
@@ -39,7 +51,7 @@ export function WhatToExpect() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {items.map((item, index) => {
-              const Icon = ICONS[index % ICONS.length];
+              const Icon = iconFor(item.title, index);
               return (
                 <Reveal key={index} delay={0.08 * index}>
                   <div className="h-full rounded-3xl border border-cream/15 bg-cream/[0.06] p-7 transition-colors duration-500 hover:bg-cream/[0.11]">

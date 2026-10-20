@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu as MenuIcon, Phone, X } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { buttonPrimary, container, focusRing } from "@/components/styles";
@@ -9,11 +10,13 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import type { NavLink } from "@/lib/nav";
+import { logoPhoto } from "@/lib/photos";
 
 export function Header({ links }: { links: NavLink[] }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const tel = telHref(site.phone);
+  const logo = logoPhoto();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -30,7 +33,18 @@ export function Header({ links }: { links: NavLink[] }) {
       )}
     >
       <div className={cn(container, "flex h-16 items-center justify-between gap-4 sm:h-20")}>
-        <a href="#top" className={cn("rounded-md", focusRing)} aria-label={`${site.name} home`}>
+        <a href="#top" className={cn("flex items-center gap-3 rounded-md", focusRing)} aria-label={`${site.name} home`}>
+          {logo && (
+            <Image
+              src={logo.src}
+              alt=""
+              width={44}
+              height={44}
+              sizes="44px"
+              priority
+              className="size-10 rounded-lg object-cover shadow-sm ring-1 ring-ink/10 sm:size-11"
+            />
+          )}
           <Wordmark />
         </a>
 

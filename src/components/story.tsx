@@ -1,11 +1,10 @@
 import Image from "next/image";
 
-import { Flourish, OliveSprig } from "@/components/ornaments";
+import { OliveSprig } from "@/components/ornaments";
 import { Reveal } from "@/components/reveal";
 import { container, eyebrow, sectionTitle } from "@/components/styles";
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
-import { visibleCategories } from "@/lib/menu";
 import { photoDimensions, photosOfCategory } from "@/lib/photos";
 
 /** Paragraph 0 is the lead; later paragraphs become cards, title = text before the first ":". */
@@ -22,11 +21,7 @@ export function Story() {
   if (!site.about.heading.trim() && paragraphs.length === 0) return null;
   const [lead, ...rest] = paragraphs;
   const cards = rest.map(splitCard);
-  const signatures = visibleCategories(site.menu)
-    .flatMap((category) => category.items)
-    .filter((item) => item.signature)
-    .slice(0, 4);
-  const interior = [...photosOfCategory("interior"), ...photosOfCategory("food")].slice(0, 2);
+  const interior = photosOfCategory("interior").slice(0, 2);
 
   return (
     <section id="story" className="grain relative overflow-hidden py-24 sm:py-32">
@@ -44,12 +39,14 @@ export function Story() {
               </p>
             )}
             {cards.length > 0 && (
-              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              <div className="mt-10 grid gap-4">
                 {cards.map((card, index) => (
-                  <div key={index} className="rounded-2xl border border-line bg-paper/70 p-5 shadow-[0_20px_40px_-30px] shadow-wine/40">
-                    <span className="font-display text-3xl italic text-gold">{String(index + 1).padStart(2, "0")}</span>
-                    {card.title && <h3 className="mt-2 font-display text-xl font-semibold text-wine">{card.title}</h3>}
-                    <p className="mt-2 text-sm leading-relaxed text-ink/70">{card.body}</p>
+                  <div key={index} className="flex gap-5 rounded-2xl border border-line bg-paper/70 p-5 shadow-[0_20px_40px_-30px] shadow-wine/40 sm:p-6">
+                    <span className="font-display text-3xl italic leading-none text-gold">{String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      {card.title && <h3 className="font-display text-xl font-semibold text-wine">{card.title}</h3>}
+                      <p className="mt-1.5 text-sm leading-relaxed text-ink/70">{card.body}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -58,32 +55,23 @@ export function Story() {
         </div>
 
         {interior.length > 0 && (
-          <div className="mt-16 grid gap-4 sm:grid-cols-2">
-            {interior.map((photo) => (
-              <Image key={photo.src} src={photo.src} alt={photo.alt} {...photoDimensions(photo)} className="aspect-[4/3] w-full rounded-3xl object-cover" />
-            ))}
-          </div>
-        )}
-
-        {signatures.length > 0 && (
-          <Reveal className="mt-20">
-            <div className="flex flex-col items-center text-center">
-              <Flourish />
-              <p className="mt-4 font-display text-3xl italic text-wine sm:text-4xl">The ones people line up for</p>
-            </div>
-            <ul className="mt-10 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-              {signatures.map((item) => (
-                <li key={item.id} className="group relative bg-paper p-7 transition-colors duration-500 hover:bg-wine">
-                  <span aria-hidden="true" className="font-display text-4xl italic text-gold transition-colors group-hover:text-cream/60">
-                    {String(signatures.indexOf(item) + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-3 font-display text-2xl font-semibold text-wine transition-colors group-hover:text-cream">{item.name}</h3>
-                  {item.description && (
-                    <p className="mt-2 text-sm leading-relaxed text-ink/65 transition-colors group-hover:text-cream/75">{item.description}</p>
-                  )}
-                </li>
+          <Reveal className="mt-16 sm:mt-20">
+            <div className={cn("grid gap-4", interior.length > 1 && "lg:grid-cols-[1.15fr_1fr]")}>
+              {interior.map((photo, index) => (
+                <figure key={photo.src} className="group relative overflow-hidden rounded-3xl bg-ink shadow-[0_30px_60px_-40px] shadow-ink/60">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    {...photoDimensions(photo)}
+                    sizes={interior.length > 1 ? "(min-width: 1024px) 560px, 100vw" : "(min-width: 1152px) 1088px, 100vw"}
+                    className="aspect-[16/7] h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03] lg:aspect-auto lg:min-h-64"
+                  />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-5 pb-4 pt-12 text-sm text-cream/90">
+                    {index === 0 ? "Inside Catullo's" : photo.alt}
+                  </figcaption>
+                </figure>
               ))}
-            </ul>
+            </div>
           </Reveal>
         )}
       </div>

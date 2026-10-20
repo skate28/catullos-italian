@@ -1,4 +1,5 @@
 import { Clock, MapPin, Navigation, Phone } from "lucide-react";
+import Image from "next/image";
 
 import { HoursList } from "@/components/hours-list";
 import { Reveal } from "@/components/reveal";
@@ -7,11 +8,13 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { directionsHref, mapEmbedSrc } from "@/lib/maps";
+import { photoDimensions, photosOfCategory } from "@/lib/photos";
 
 export function Visit() {
   const tel = telHref(site.phone);
   const directions = directionsHref();
   const embed = mapEmbedSrc();
+  const storefront = photosOfCategory("storefront")[0] ?? null;
 
   return (
     <section id="visit" className="relative bg-paper py-24 sm:py-32">
@@ -53,27 +56,39 @@ export function Visit() {
                     </a>
                   )}
                 </div>
-                {(site.priceRange.trim() || site.paymentNote.trim()) && (
-                  <p className="mt-6 text-sm text-ink/55">
-                    {[site.priceRange.trim(), site.paymentNote.trim()].filter(Boolean).join(" · ")}
-                  </p>
-                )}
+                {site.paymentNote.trim() && <p className="mt-6 text-sm text-ink/55">{site.paymentNote.trim()}</p>}
               </div>
             </div>
           </Reveal>
 
-          {embed && (
-            <Reveal delay={0.1}>
-              <div className="relative h-full min-h-[22rem] overflow-hidden rounded-3xl border border-line bg-cream p-2">
+          {(embed || storefront) && (
+            <Reveal delay={0.1} className="flex flex-col gap-6">
+              {storefront && (
+                <figure className="relative overflow-hidden rounded-3xl border border-line bg-cream p-2">
+                  <Image
+                    src={storefront.src}
+                    alt={storefront.alt}
+                    {...photoDimensions(storefront)}
+                    sizes="(min-width: 1024px) 600px, 100vw"
+                    className="aspect-[16/8] w-full rounded-[1.25rem] object-cover"
+                  />
+                  <figcaption className="absolute bottom-5 left-5 rounded-full bg-paper/90 px-3 py-1.5 text-xs font-semibold text-ink shadow">
+                    Look for this sign
+                  </figcaption>
+                </figure>
+              )}
+              {embed && (
+              <div className="relative min-h-[20rem] flex-1 overflow-hidden rounded-3xl border border-line bg-cream p-2">
                 <iframe
                   title={`Map showing ${site.name} at ${site.address.full}`}
                   src={embed}
-                  className="h-full min-h-[21rem] w-full rounded-[1.25rem] border-0 grayscale-[35%] sepia-[20%]"
+                  className="h-full min-h-[19rem] w-full rounded-[1.25rem] border-0 grayscale-[25%] sepia-[15%]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen
                 />
               </div>
+              )}
             </Reveal>
           )}
         </div>

@@ -104,14 +104,34 @@ export function Hero() {
         >
           <Seal text="FATTA A MANO · HANDMADE PASTA · " className="absolute -right-3 -top-12 z-10 size-28 sm:-left-12 sm:right-auto sm:size-32" />
           {photo ? (
-            <div className="overflow-hidden rounded-t-full border-[10px] border-paper shadow-2xl shadow-wine/25">
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                {...photoDimensions(photo)}
-                priority
-                className="aspect-[3/4] w-full object-cover"
-              />
+            <div className="relative">
+              <div className="overflow-hidden rounded-t-full border-[10px] border-paper bg-paper shadow-2xl shadow-ink/25">
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  {...photoDimensions(photo)}
+                  priority
+                  sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, 90vw"
+                  className="aspect-[3/4] w-full object-cover"
+                />
+              </div>
+              {rows.length > 0 && (
+                <div className="absolute -bottom-8 -left-4 w-56 rounded-2xl bg-wine/95 p-4 text-cream shadow-xl shadow-ink/30 ring-1 ring-cream/10 backdrop-blur sm:-left-14 sm:w-60">
+                  <p className="text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-cream/60">Serving dinner</p>
+                  <dl className="mt-2 space-y-1.5 text-[0.8rem]">
+                    {rows.map((row) => (
+                      <div key={row.label} className="flex items-baseline gap-2">
+                        <dt className="font-display text-base italic">{row.label}</dt>
+                        <span aria-hidden="true" className="flex-1 border-b border-dotted border-cream/30" />
+                        <dd className={cn("font-medium", row.value === "Closed" && "text-cream/50")}>{row.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
+              <p className="mt-12 text-center font-display text-lg italic text-ink/60 sm:mt-4 sm:pl-40 sm:text-right">
+                {photo.alt.split(":")[0]}
+              </p>
             </div>
           ) : (
             <div className="relative overflow-hidden rounded-t-full bg-wine p-2.5 shadow-2xl shadow-wine/30">

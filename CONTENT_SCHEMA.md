@@ -53,7 +53,7 @@ For **Leads** (content). You own `src/content/site.ts` and `public/images/`. You
 | `…priceFrom` | boolean | Renders "from $18.90" | — |
 | `…isNew` | boolean | Small "New" tag | — |
 | `…placeholder` | boolean | Item hidden | — |
-| `photos[]`, `heroImage` | `{src, alt, category, credit, width?, height?, hero?}` | Hero arch photo (replaces the hours arch), up to 2 interior/food photos in Our Story | typographic design, no photos |
+| `photos[]`, `heroImage` | `{src, alt, category, credit, width?, height?, hero?}` | See "How photos are used" below | typographic design, no photos |
 | `palette` | 8 hex colors | CSS variables. Roles here: `ink` text, `brand` terracotta buttons, `brandDeep` hover, `accent` olive, `salmon` antique gold (prices), `nori` deep wine bands, `rice` cream page, `paper` cards | fallbacks in `globals.css` |
 | `about.heading` / `about.paragraphs[]` | strings | Our Story. Paragraph 0 = lead with drop cap; later paragraphs become numbered cards, title = text before the first `:` | section hidden |
 | `preorder.*` | heading/intro/textButtonLabel/textMessage/maxDaysAhead | Copy for the "Text-ahead pre-orders" coming-soon card | defaults |
@@ -78,3 +78,18 @@ For **Leads** (content). You own `src/content/site.ts` and `public/images/`. You
 "Not available yet" button, plus a note that today there are no reservations, texting or online
 ordering. Set a feature to `"live"` only after the restaurant really offers it.
 If every feature is `"off"`, the whole Coming Soon section and its nav link disappear.
+
+## How photos are used
+
+All images are served from `public/images/` through `next/image` (responsive sizes, lazy-loaded except the hero/logo). `alt` text comes from `site.ts`.
+
+| Where | Which photos |
+| --- | --- |
+| Hero arch | `heroImage` (or the first photo with `hero: true`), with a floating hours card. No hero photo → the dark hours arch. Caption = `alt` text before the first `:` |
+| Header + footer | First photo with `category: "logo"` (shown next to the wordmark). Never in the gallery |
+| Our Story | Up to 2 `interior` photos as wide banners |
+| House favorites | Menu items matched to food photos **by file name**: item `id` = file name, or file name starts with `<id>-` (e.g. `burrata` → `burrata-crostini.jpg`). Signatures first; the hero file is skipped if the same dish has another photo. Up to 5 (first one large) |
+| Gallery ("From our kitchen") | Remaining `food` photos not used above, with a lightbox |
+| Hours & Location | First `storefront` photo ("Look for this sign") above the map |
+
+Prices: none are rendered while every `price` is unset. `priceRange` is used only in JSON-LD (not shown on the page).

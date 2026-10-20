@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { OliveSprig } from "@/components/ornaments";
 import { container, focusRing } from "@/components/styles";
 import { Wordmark } from "@/components/wordmark";
@@ -6,6 +8,7 @@ import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { directionsHref } from "@/lib/maps";
 import { safeHref } from "@/lib/ordering";
+import { logoPhoto } from "@/lib/photos";
 
 export function Footer() {
   const tel = telHref(site.phone);
@@ -15,13 +18,19 @@ export function Footer() {
     return href && link.label.trim() ? [{ label: link.label.trim(), href }] : [];
   });
   const credit = site.footerCredit.trim() || "Built by nicklopacki.com";
+  const logo = logoPhoto();
 
   return (
     <footer className="grain grain-dark relative overflow-hidden bg-wine pb-28 pt-20 text-cream md:pb-10">
       <div className={container}>
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Wordmark tone="cream" className="[&>span:first-child]:text-5xl" />
+            <div className="flex items-center gap-4">
+              {logo && (
+                <Image src={logo.src} alt={logo.alt} width={72} height={72} sizes="72px" className="size-16 rounded-xl object-cover ring-1 ring-cream/20 sm:size-[72px]" />
+              )}
+              <Wordmark tone="cream" className="[&>span:first-child]:text-5xl" />
+            </div>
             {site.tagline.trim() && <p className="mt-4 max-w-sm font-display text-xl italic text-cream/75">{site.tagline}</p>}
             <OliveSprig className="mt-6 w-40 text-cream/40" />
           </div>

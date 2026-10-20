@@ -1,5 +1,6 @@
 import { site } from "@/content/site";
 import { anyFeatureVisible } from "@/lib/features";
+import { galleryRemainder } from "@/lib/dishes";
 import { visibleCategories } from "@/lib/menu";
 
 export type NavLink = {
@@ -14,6 +15,7 @@ export function primaryNav(): NavLink[] {
     { href: "#menu", label: "Menu", show: visibleCategories(site.menu).length > 0 },
     { href: "#expect", label: "What to Expect", show: Boolean(site.whatToExpect) },
     { href: "#soon", label: "Coming Soon", show: anyFeatureVisible() },
+    { href: "#gallery", label: "Gallery", show: galleryRemainder().length > 0 },
     { href: "#visit", label: "Hours & Location", show: true },
   ]
     .filter((link) => link.show)

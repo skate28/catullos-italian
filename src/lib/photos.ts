@@ -55,3 +55,25 @@ export function heroPhoto(
   }
   return photos.find((photo) => photo.hero && isPublicPhoto(photo)) ?? null;
 }
+
+/** The site logo photo (category "logo"), if any. */
+export function logoPhoto(photos: Photo[] = site.photos): Photo | null {
+  return publicPhotos(photos).find((photo) => photo.category === "logo") ?? null;
+}
+
+function slug(src: string): string {
+  return photoFileName(src).replace(/\.[a-z0-9]+$/, "");
+}
+
+/**
+ * Photo for a menu item, matched by file name: `/images/<item.id>.jpg` or `/images/<item.id>-anything.jpg`
+ * (e.g. item `burrata` ↔ `burrata-crostini.jpg`). Exact matches win. Food photos only.
+ */
+export function photoForItemId(id: string, exclude: string[] = [], photos: Photo[] = site.photos): Photo | null {
+  const food = publicPhotos(photos).filter((photo) => photo.category === "food" || photo.category === "drinks");
+  const candidates = [
+    ...food.filter((photo) => slug(photo.src) === id),
+    ...food.filter((photo) => slug(photo.src).startsWith(`${id}-`)),
+  ];
+  return candidates.find((photo) => !exclude.includes(photo.src)) ?? candidates[0] ?? null;
+}
